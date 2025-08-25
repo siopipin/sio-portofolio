@@ -214,6 +214,122 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
+      {/* Project Details */}
+      <section className="py-20 bg-slate-50 dark:bg-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+              Detail Proyek
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-300">
+              Informasi lengkap tentang pengembangan dan implementasi proyek ini
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-white/20 dark:border-slate-700/50">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                <Calendar className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
+                Timeline Pengembangan
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-4">
+                Proyek ini dikembangkan selama 6 bulan dengan tahapan yang terstruktur dan metodologi Agile.
+              </p>
+              <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                <li>• Planning & Research (2 minggu)</li>
+                <li>• UI/UX Design (3 minggu)</li>
+                <li>• Frontend Development (8 minggu)</li>
+                <li>• Backend Development (6 minggu)</li>
+                <li>• Testing & Deployment (3 minggu)</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-white/20 dark:border-slate-700/50">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
+                Target Pengguna
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-4">
+                Platform ini dirancang untuk berbagai jenis pengguna dalam ekosistem pendidikan.
+              </p>
+              <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                <li>• Dosen & Pengajar</li>
+                <li>• Mahasiswa & Pelajar</li>
+                <li>• Administrator Institusi</li>
+                <li>• Content Creator</li>
+                <li>• IT Support</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-white/20 dark:border-slate-700/50">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                <TrendingUp className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
+                Metrik Keberhasilan
+              </h3>
+              <p className="text-slate-600 dark:text-slate-300 mb-4">
+                Platform ini telah mencapai berbagai milestone dan metrik performa yang mengesankan.
+              </p>
+              <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-2">
+                <li>• 10,000+ Pengguna Aktif</li>
+                <li>• 99.9% Uptime</li>
+                <li>• 500+ Kursus Online</li>
+                <li>• 95% User Satisfaction</li>
+                <li>• 50% Peningkatan Engagement</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                Arsitektur Sistem
+              </h3>
+              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+                Sistem ini dibangun dengan arsitektur microservices yang scalable dan maintainable. 
+                Menggunakan containerization dengan Docker dan orchestration dengan Kubernetes untuk 
+                deployment yang efisien dan reliable.
+              </p>
+              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+                Database menggunakan PostgreSQL untuk data relasional dan Redis untuk caching. 
+                File storage menggunakan AWS S3 untuk media content dan CDN untuk optimasi delivery.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
+                  Microservices
+                </span>
+                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
+                  Docker
+                </span>
+                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
+                  Kubernetes
+                </span>
+                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
+                  AWS S3
+                </span>
+              </div>
+            </div>
+            
+            <div className="relative">
+              <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl overflow-hidden shadow-2xl">
+                <Image 
+                  src="https://picsum.photos/800/450?random=2"
+                  alt="System Architecture"
+                  width={800}
+                  height={450}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Technologies */}
       <section className="py-20 bg-slate-50 dark:bg-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
