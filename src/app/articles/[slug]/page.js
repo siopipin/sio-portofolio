@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { articles, getArticlesByCategory } from '@/data/articles';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Calendar, Clock, Tag, Share2, BookOpen, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, Tag, Share2, BookOpen, ArrowLeft, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -13,7 +13,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const article = articles.find(article => article.slug === params.slug);
+  const { slug } = await params;
+  const article = articles.find(article => article.slug === slug);
   
   if (!article) {
     return { title: 'Artikel Tidak Ditemukan' };
@@ -32,8 +33,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function ArticleDetailPage({ params }) {
-  const article = articles.find(article => article.slug === params.slug);
+export default async function ArticleDetailPage({ params }) {
+  const { slug } = await params;
+  const article = articles.find(article => article.slug === slug);
   
   if (!article) {
     notFound();
@@ -42,6 +44,17 @@ export default function ArticleDetailPage({ params }) {
   const relatedArticles = getArticlesByCategory(article.category)
     .filter(a => a.id !== article.id)
     .slice(0, 3);
+
+  // Get popular articles (most read)
+  const popularArticles = articles
+    .filter(a => a.id !== article.id)
+    .sort((a, b) => (b.featured ? 1 : -1)) // Featured articles first
+    .slice(0, 3);
+
+  // Get next and previous articles
+  const currentIndex = articles.findIndex(a => a.id === article.id);
+  const nextArticle = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
+  const prevArticle = currentIndex > 0 ? articles[currentIndex - 1] : null;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -118,8 +131,7 @@ export default function ArticleDetailPage({ params }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
             <article className="lg:col-span-3">
-              <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/20 dark:border-slate-700/50 p-8 lg:p-12">
-                <div className="text-slate-700 dark:text-slate-300 article-content">
+              <div className="text-slate-700 dark:text-slate-300 article-content">
                   <h2 className="font-bold text-slate-900 dark:text-white">
                     Pengenalan Next.js 14
                   </h2>
@@ -165,14 +177,14 @@ export default function ArticleDetailPage({ params }) {
                   <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-4 mb-6">
                     <pre className="text-sm text-slate-700 dark:text-slate-300">
 {`app/
-├── page.js          // Home page (/)
+├── page.js      
 ├── about/
-│   └── page.js      // About page (/about)
+│   └── page.js     
 ├── blog/
-│   ├── page.js      // Blog list (/blog)
+│   ├── page.js     
 │   └── [slug]/
-│       └── page.js  // Blog post (/blog/post-slug)
-└── layout.js        // Root layout`}
+│       └── page.js  
+└── layout.js`}
                     </pre>
                   </div>
 
@@ -251,6 +263,46 @@ export default function ArticleDetailPage({ params }) {
                     Dengan App Router, Server Components, dan optimasi performa yang built-in, 
                     Next.js 14 adalah pilihan terbaik untuk proyek web modern.
                   </p>
+
+              {/* Article Navigation */}
+              <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+                {prevArticle && (
+                  <Link 
+                    href={`/articles/${prevArticle.slug}`}
+                    className="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 dark:border-slate-700/50 p-6 hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm text-slate-500 dark:text-slate-400">Artikel Sebelumnya</span>
+                      <ArrowLeft className="w-4 h-4 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
+                    </div>
+                    <h3 className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                      {prevArticle.title}
+                    </h3>
+                    <div className="flex items-center mt-3 text-sm text-slate-500 dark:text-slate-400">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      <span>{formatDate(prevArticle.publishedAt)}</span>
+                    </div>
+                  </Link>
+                )}
+
+                {nextArticle && (
+                  <Link 
+                    href={`/articles/${nextArticle.slug}`}
+                    className="group bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 dark:border-slate-700/50 p-6 hover:shadow-xl transition-all duration-300"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm text-slate-500 dark:text-slate-400">Artikel Selanjutnya</span>
+                      <ArrowLeft className="w-4 h-4 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors rotate-180" />
+                    </div>
+                    <h3 className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2">
+                      {nextArticle.title}
+                    </h3>
+                    <div className="flex items-center mt-3 text-sm text-slate-500 dark:text-slate-400">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      <span>{formatDate(nextArticle.publishedAt)}</span>
+                    </div>
+                  </Link>
+                )}
                 </div>
               </div>
             </article>
@@ -275,25 +327,32 @@ export default function ArticleDetailPage({ params }) {
                   </div>
                 </div>
 
-                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 dark:border-slate-700/50 p-6">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center">
-                    <BookOpen className="w-5 h-5 mr-2" />
-                    Artikel Terkait
+                <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-xl shadow-lg border border-white/20 dark:border-slate-700/50 p-4">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mt-4 mb-4 flex items-center">
+                    <TrendingUp className="w-5 h-5 mr-2" />
+                    Artikel Paling Banyak Dibaca
                   </h3>
                   <div className="space-y-4">
-                    {relatedArticles.map((relatedArticle) => (
+                    {popularArticles.map((popularArticle, index) => (
                       <Link 
-                        key={relatedArticle.id}
-                        href={`/articles/${relatedArticle.slug}`}
+                        key={popularArticle.id}
+                        href={`/articles/${popularArticle.slug}`}
                         className="block group"
                       >
                         <article className="p-4 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-                          <h4 className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
-                            {relatedArticle.title}
-                          </h4>
-                          <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
-                            <Calendar className="w-3 h-3 mr-1" />
-                            <span>{formatDate(relatedArticle.publishedAt)}</span>
+                          <div className="flex items-start gap-3">
+                            <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                              {index + 1}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h6 className="font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 mb-2">
+                                {popularArticle.title}
+                              </h6>
+                              <div className="flex items-center text-sm text-slate-500 dark:text-slate-400">
+                                <Calendar className="w-3 h-3 mr-1" />
+                                <span>{formatDate(popularArticle.publishedAt)}</span>
+                              </div>
+                            </div>
                           </div>
                         </article>
                       </Link>
