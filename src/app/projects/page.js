@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { projects, categories } from '@/data/projects';
 import { Code, ExternalLink, Github, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -127,8 +128,15 @@ export default function ProjectsPage() {
               {currentProjects.map((project) => (
                 <div key={project.id} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group border border-white/20 dark:border-slate-700/50">
                   {/* Project Image */}
-                  <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative overflow-hidden">
-                    <Code className="w-16 h-16 text-white transition-transform duration-300 group-hover:scale-110" />
+                  <div className="h-48 relative overflow-hidden">
+                    <Image 
+                      src={`https://picsum.photos/400/200?random=${project.id}`}
+                      alt={project.title}
+                      width={400}
+                      height={200}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                     <div className="absolute top-4 right-4">
                       <span className="px-3 py-1 bg-white/20 backdrop-blur-sm text-white text-xs rounded-full border border-white/30">
                         {project.year}

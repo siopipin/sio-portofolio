@@ -98,9 +98,9 @@ export const articles = [
 ];
 
 export const categories = [
-  { id: "all", name: "Semua", count: articles.length },
-  { id: "web-development", name: "Web Development", count: articles.filter(a => a.category === "web-development").length },
   { id: "mobile-development", name: "Mobile Development", count: articles.filter(a => a.category === "mobile-development").length },
+  { id: "web-development", name: "Web Development", count: articles.filter(a => a.category === "web-development").length },
+  { id: "all", name: "Semua", count: articles.length },
   { id: "backend", name: "Backend", count: articles.filter(a => a.category === "backend").length },
   { id: "iot", name: "IoT", count: articles.filter(a => a.category === "iot").length },
   { id: "security", name: "Security", count: articles.filter(a => a.category === "security").length },

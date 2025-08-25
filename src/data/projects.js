@@ -12,7 +12,7 @@ export const projects = [
     year: 2024
   },
   {
-    id: 2,
+    id: 22,
     title: "Mobile Banking App",
     description: "Aplikasi mobile banking dengan fitur transfer, pembayaran, dan investasi yang aman dan user-friendly.",
     category: "mobile",
