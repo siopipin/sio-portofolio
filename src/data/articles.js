@@ -32,7 +32,7 @@ export const articles = [
     tags: ["Database", "Performance", "PostgreSQL", "MongoDB"],
     publishedAt: "2024-01-05",
     readTime: "10 min read",
-    featured: false,
+    featured: true,
     slug: "database-optimization"
   },
   {
