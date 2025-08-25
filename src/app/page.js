@@ -196,9 +196,11 @@ export default function Home() {
                   <Code className="w-16 h-16 text-white" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-                    {project.title}
-                  </h3>
+                  <Link href={`/projects/${project.id}`}>
+                    <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer">
+                      {project.title}
+                    </h3>
+                  </Link>
                   <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">
                     {project.description}
                   </p>
