@@ -23,68 +23,71 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-              Navigasi
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
-                  Beranda
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
-                  Karya
-                </Link>
-              </li>
-              <li>
-                <Link href="/articles" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
-                  Artikel
-                </Link>
-              </li>
-              <li>
-                <Link href="/publications" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
-                  Publikasi
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Navigation & Contact - Mobile in 1 row */}
+          <div className="grid grid-cols-2 gap-6 md:col-span-2">
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                Navigasi
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
+                    Beranda
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/projects" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
+                    Karya
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/articles" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
+                    Artikel
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/publications" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors">
+                    Publikasi
+                  </Link>
+                </li>
+              </ul>
+            </div>
 
-          {/* Contact & Social */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-              Kontak
-            </h3>
-            <div className="space-y-3">
-              <a
-                href="mailto:contact@sioweb.com"
-                className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                <span>contact@sioweb.com</span>
-              </a>
-              <a
-                href="https://github.com/sioweb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                <span>GitHub</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <a
-                href="https://linkedin.com/in/sioweb"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-                <span>LinkedIn</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+            {/* Contact & Social */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                Kontak
+              </h3>
+              <div className="space-y-3">
+                <a
+                  href="mailto:contact@sioweb.com"
+                  className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>contact@sioweb.com</span>
+                </a>
+                <a
+                  href="https://github.com/sioweb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors"
+                >
+                  <Github className="w-4 h-4" />
+                  <span>GitHub</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <a
+                  href="https://linkedin.com/in/sioweb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  <span>LinkedIn</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

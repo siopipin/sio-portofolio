@@ -1,6 +1,6 @@
 export const articles = [
   {
-    id: 1,
+    id: 11,
     title: "Memulai dengan Next.js 14: Fitur Terbaru dan Best Practices",
     excerpt: "Panduan lengkap untuk memulai pengembangan web dengan Next.js 14, termasuk fitur App Router, Server Components, dan optimasi performa.",
     content: "Next.js 14 membawa banyak fitur baru yang revolusioner...",

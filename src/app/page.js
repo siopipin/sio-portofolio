@@ -266,26 +266,26 @@ export default function Home() {
               <div className="space-y-6">
                 {featuredArticles.map((article) => (
                   <div key={article.id} className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden hover:shadow-md transition-shadow bg-white dark:bg-slate-900">
-                    <div className="flex h-full">
+                    <div className="flex h-32 md:h-40">
                       {/* Foto Artikel */}
-                      <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0">
+                      <div className="w-32 h-full flex-shrink-0">
                         <Image 
                           src={`https://picsum.photos/200/200?random=${article.id}`}
                           alt={article.title}
                           width={128} 
-                          height={128} 
+                          height={160} 
                           className="w-full h-full object-cover"
                         />
                       </div>
                       
                       {/* Konten Artikel */}
-                      <div className="flex-1 p-4 md:p-6 flex flex-col justify-between">
+                      <div className="flex-1 p-4 md:p-6 flex flex-col justify-between min-w-0">
                         <div>
                           <div className="flex items-start justify-between mb-2">
-                            <h3 className="text-lg font-semibold text-slate-900 dark:text-white line-clamp-2 flex-1">
+                            <h3 className="text-lg font-semibold text-slate-900 dark:text-white line-clamp-2 flex-1 mr-2">
                               {article.title}
                             </h3>
-                            <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 ml-2" />
+                            <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
                           </div>
                           <p className="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
                             {article.excerpt}
