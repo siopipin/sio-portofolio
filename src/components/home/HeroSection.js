@@ -26,18 +26,18 @@ export default function HeroSection() {
           <div className="space-y-6 lg:space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Halo, Saya <span className="text-yellow-300">SioWeb</span>
+                Hello, I'm <span className="text-yellow-300">Sio</span>
               </h1>
               <div className="flex flex-row gap-4 items-start">
                 <p className="text-xl md:text-2xl text-blue-100 leading-relaxed flex-1">
-                  Dosen IT, Programmer, dan Penulis yang passionate dalam pengembangan teknologi dan pendidikan.
+                  IT Lecturer, Programmer, and Writer passionate about technology development and education.
                 </p>
                 <div className="relative sm:hidden flex-shrink-0">
                   <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-xl border border-white/20 shadow-lg">
                     <div className="w-20 h-20 bg-gradient-to-br from-yellow-300/90 to-orange-400/90 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-sm border border-white/30 shadow-md">
                       <Image
                         src="/siojurnalispipin.png"
-                        alt="SioWeb Profile Photo"
+                        alt="Sio Jurnalis Pipin Profile Photo"
                         width={80}
                         height={80}
                         className="w-full h-full object-cover rounded-full"
@@ -54,7 +54,7 @@ export default function HeroSection() {
                 href="/projects"
                 className="inline-flex items-center justify-center px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                Lihat Karya
+                See Projects
               </Link>
               <a
                 href="/cv-sioweb.pdf"
