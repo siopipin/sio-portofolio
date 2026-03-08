@@ -265,42 +265,57 @@ export default function Home() {
                 </Link>
               </div>
               
-              <div className="space-y-6">
-                {featuredArticles.map((article) => (
-                  <div key={article.id} className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden hover:shadow-md transition-shadow bg-white dark:bg-slate-900">
-                    <div className="flex h-32 md:h-40">
-                      {/* Foto Artikel */}
-                      <div className="w-32 h-full flex-shrink-0">
-                        <Image 
-                          src={`https://picsum.photos/200/200?random=${article.id}`}
-                          alt={article.title}
-                          width={128} 
-                          height={160} 
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      
-                      {/* Konten Artikel */}
-                      <div className="flex-1 p-4 md:p-6 flex flex-col justify-between min-w-0">
-                        <div>
-                          <div className="flex items-start justify-between mb-2">
-                            <h3 className="text-lg font-semibold text-slate-900 dark:text-white line-clamp-2 flex-1 mr-2">
-                              {article.title}
-                            </h3>
-                            <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+              <div className="space-y-4">
+                {featuredArticles.map((article) => {
+                  const formatDate = (dateString) => {
+                    if (!dateString) return '';
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString('id-ID', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    });
+                  };
+                  const coverSrc = article.coverImage
+                    ? `/articles/assets/${article.coverImage}`
+                    : `https://picsum.photos/200/200?random=${article.id}`;
+                  return (
+                    <Link key={article.slug} href={`/articles/${article.slug}`} className="group block">
+                      <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden hover:shadow-md transition-shadow bg-white dark:bg-slate-900">
+                        <div className="flex min-h-32 md:min-h-36">
+                          {/* Foto Artikel - Cover */}
+                          <div className="w-30 md:w-34 flex-shrink-0">
+                            <Image 
+                              src={coverSrc}
+                              alt={article.title}
+                              width={128} 
+                              height={160} 
+                              className="w-full h-full object-cover"
+                            />
                           </div>
-                          <p className="text-slate-600 dark:text-slate-300 text-sm mb-3 line-clamp-2">
-                            {article.excerpt}
-                          </p>
-                        </div>
-                        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                          <span>{article.publishedAt}</span>
-                          <span>{article.readTime}</span>
+                          
+                          {/* Konten Artikel */}
+                          <div className="flex-1 px-3 pt-3 pb-4 md:px-6 md:pt-6 md:pb-6 flex flex-col justify-between min-w-0">
+                            <div>
+                              <div className="flex items-start justify-between mb-1">
+                                <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white line-clamp-2 flex-1 mr-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                  {article.title}
+                                </h3>
+                              </div>
+                              <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm mb-2 line-clamp-2">
+                                {article.excerpt}
+                              </p>
+                            </div>
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-1 md:gap-0 text-xs text-slate-500 dark:text-slate-400">
+                              <span className="truncate">{formatDate(article.publishedAt)} · {article.author || 'Sio Jurnalis Pipin'}</span>
+                              <span className="flex-shrink-0">{article.readTime}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                ))}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 

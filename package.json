@@ -3,12 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "dev": "node scripts/copy-article-assets.js && next dev --turbopack",
+    "build": "node scripts/copy-article-assets.js && next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "add-project": "node scripts/add-project.js",
-    "add-article": "node scripts/add-article.js"
+    "add-project": "node scripts/add-project.js"
   },
   "dependencies": {
     "date-fns": "^4.1.0",
@@ -17,8 +16,11 @@
     "next": "15.5.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "rehype-highlight": "^7.0.2",
+    "rehype-stringify": "^10.0.1",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1"
+    "remark-gfm": "^4.0.1",
+    "remark-rehype": "^11.1.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,4 +1,5 @@
- import { Inter } from "next/font/google";
+import { Inter } from "next/font/google";
+import "highlight.js/styles/atom-one-dark.css";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -59,7 +60,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id">
+    <html lang="id" className="dark" suppressHydrationWarning>
       <body className={inter.className}>
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
           {children}

@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+/* Force dark mode via class (no light/system) */
+@custom-variant dark (&&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -10,13 +13,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -44,6 +40,23 @@ body {
   font-size: 18px;
   line-height: 1.8;
   letter-spacing: -0.003em;
+  overflow-x: auto;
+}
+
+.article-content h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.article-content h1 + p {
+  font-size: 0.95rem;
+  color: rgb(100 116 139);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgb(51 65 85);
 }
 
 .article-content h2 {
@@ -71,19 +84,152 @@ body {
   margin-bottom: 1.5rem;
 }
 
+/* Bullet list */
 .article-content ul {
   margin-bottom: 1.5rem;
-  padding-left: 1.5rem;
+  padding-left: 1.75rem;
+  list-style-type: disc;
+}
+
+/* Numbered list */
+.article-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.75rem;
+  list-style-type: decimal;
 }
 
 .article-content li {
   margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
+.article-content li > ul,
+.article-content li > ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquote / Kutipan */
+.article-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid rgb(59 130 246);
+  background: rgb(30 41 59);
+  color: rgb(203 213 225);
+  font-style: italic;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.article-content blockquote p {
+  margin-bottom: 0;
+}
+
+.article-content blockquote p + p {
+  margin-top: 0.75rem;
+}
+
+/* Table */
+.article-content table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.article-content th,
+.article-content td {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgb(51 65 85);
+  text-align: left;
+}
+
+.article-content th {
+  background: rgb(30 41 59);
+  font-weight: 600;
+  color: rgb(226 232 240);
+}
+
+.article-content td {
+  background: rgb(15 23 42);
+  color: rgb(203 213 225);
+}
+
+.article-content tr:hover td {
+  background: rgb(30 41 59);
+}
+
+/* Table responsive - compact untuk mobile */
+@media (max-width: 768px) {
+  .article-content table {
+    font-size: 0.75rem;
+    display: block;
+    overflow-x: auto;
+  }
+  
+  .article-content th,
+  .article-content td {
+    padding: 0.5rem 0.6rem;
+    white-space: nowrap;
+  }
+  
+  .article-content th {
+    font-size: 0.7rem;
+  }
+}
+
+.article-content img {
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.article-content pre {
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  border: 1px solid rgb(51 65 85);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.2), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.article-content pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+
+.article-content a {
+  color: rgb(59 130 246);
+  text-decoration: underline;
+}
+
+.article-content a:hover {
+  color: rgb(37 99 235);
+}
+
+.article-content strong {
+  font-weight: 700;
+}
+
+.article-content em {
+  font-style: italic;
+}
+
+.article-content hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid rgb(51 65 85);
 }
 
 @media (max-width: 768px) {
   .article-content {
     font-size: 16px;
     line-height: 1.7;
+  }
+
+  .article-content h1 {
+    font-size: 1.875rem;
   }
   
   .article-content h2 {
