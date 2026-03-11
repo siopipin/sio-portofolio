@@ -1,6 +1,6 @@
 'use client';
-
 import { useState } from 'react';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { publications, categories, getTotalCitations } from '@/data/publications';
@@ -124,70 +124,74 @@ export default function PublicationsPage() {
               </p>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {filteredPublications.map((publication) => (
-                <div key={publication.id} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group border border-white/20 dark:border-slate-700/50">
+                <div
+                  key={publication.id}
+                  className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group border border-white/20 dark:border-slate-700/50"
+                >
                   <div className="p-6">
                     {/* Publication Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <h2 className="text-xl font-semibold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2 flex-1">
-                        {publication.title}
-                      </h2>
-                      <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 ml-3" />
-                    </div>
-
-                    {/* Authors */}
-                    <div className="flex items-center mb-3">
-                      <Users className="w-4 h-4 text-slate-500 dark:text-slate-400 mr-2" />
-                      <p className="text-slate-600 dark:text-slate-300 text-sm">
-                        {publication.authors.join(', ')}
-                      </p>
-                    </div>
-
-                    {/* Journal & Year */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 text-slate-500 dark:text-slate-400 mr-2" />
-                        <span className="text-slate-600 dark:text-slate-300 text-sm">
-                          {publication.journal} • {publication.year}
-                        </span>
+                    <div className="flex items-start gap-3 mb-3">
+                      <div className="flex-1 min-w-0">
+                        <Link
+                          href={`/publications/${publication.slug}`}
+                          className="group/title block"
+                        >
+                          <h2 className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 transition-colors line-clamp-2">
+                            {publication.title}
+                          </h2>
+                        </Link>
+                        <div className="mt-1 flex flex-wrap items-center gap-1.5 text-[11px] md:text-xs text-slate-500 dark:text-slate-400">
+                          <span className="truncate max-w-[220px] md:max-w-xs">
+                            {publication.authors.join(', ')}
+                          </span>
+                          <span className="hidden sm:inline">•</span>
+                          <span className="truncate">{publication.journal}</span>
+                          <span>• {publication.year}</span>
+                        </div>
                       </div>
-                      <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs rounded-full capitalize">
+                      <BookOpen className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                    </div>
+
+                    {/* Category chip */}
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-[11px] md:text-xs rounded-full capitalize">
                         {publication.category.replace('-', ' ')}
                       </span>
                     </div>
 
                     {/* Abstract */}
-                    <p className="text-slate-600 dark:text-slate-300 mb-4 line-clamp-3">
+                    <p className="text-slate-600 dark:text-slate-300 mb-3 line-clamp-2 text-sm">
                       {publication.abstract}
                     </p>
 
-                    {/* DOI & Citations */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4 text-sm">
-                        <div className="flex items-center text-slate-500 dark:text-slate-400">
-                          <Quote className="w-4 h-4 mr-1" />
-                          <span>{publication.citations} citations</span>
-                        </div>
-                        <a 
+                    {/* Footer meta */}
+                    <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-[11px] md:text-xs text-slate-500 dark:text-slate-400">
+                      <div className="flex items-center gap-3">
+                        <span className="inline-flex items-center">
+                          <Quote className="w-3.5 h-3.5 mr-1" />
+                          {publication.citations} citations
+                        </span>
+                        <a
                           href={`https://doi.org/${publication.doi}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 dark:text-blue-400 hover:underline flex items-center"
+                          className="inline-flex items-center hover:text-blue-600 dark:hover:text-blue-400"
                         >
                           <span className="mr-1">DOI</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       </div>
-                      
-                      <a 
+
+                      <a
                         href="https://scholar.google.com/citations?user=8T6XwQ4AAAAJ&hl=id"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                        className="inline-flex items-center hover:text-blue-600 dark:hover:text-blue-400"
                       >
-                        <ExternalLink className="w-4 h-4 mr-1" />
-                        Google Scholar
+                        <ExternalLink className="w-3 h-3 mr-1" />
+                        View on Scholar
                       </a>
                     </div>
                   </div>

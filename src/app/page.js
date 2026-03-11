@@ -5,13 +5,14 @@ import BioSection from '@/components/home/BioSection';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
 import FeaturedArticles from '@/components/home/FeaturedArticles';
 import FeaturedPublications from '@/components/home/FeaturedPublications';
-import { getFeaturedProjects } from '@/data/projects';
+import BooksCarousel from '@/components/home/BooksCarousel';
+import { getProjectsForHome } from '@/data/projects';
 import { getFeaturedArticles } from '@/data/articles';
 import { getFeaturedPublications, getTotalCitations } from '@/data/publications';
 import { skills } from '@/data/skills';
 
 export default function Home() {
-  const featuredProjects = getFeaturedProjects();
+  const featuredProjects = getProjectsForHome();
   const featuredArticles = getFeaturedArticles();
   const featuredPublications = getFeaturedPublications();
   const totalCitations = getTotalCitations();
@@ -30,6 +31,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <BooksCarousel />
       <Footer />
     </div>
   );

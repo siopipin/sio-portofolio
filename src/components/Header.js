@@ -20,9 +20,9 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-tr from-yellow-300/90 to-orange-400/90 rounded-full flex items-center justify-center shadow-md border border-slate-200 dark:border-slate-800">
+            <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-full flex items-center justify-center shadow-md border border-blue-500/40 dark:border-blue-300/30">
               {/* Icon: BookOpen as research/scholar symbol */}
-              <BookOpen className="w-5 h-5 text-amber-50 drop-shadow" />
+              <BookOpen className="w-5 h-5 text-white drop-shadow" />
             </div>
             <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
               SioPipin

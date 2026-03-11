@@ -5,8 +5,8 @@ import PublicationCard from '@/components/ui/PublicationCard';
 export default function FeaturedPublications({ publications }) {
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+      <div className="flex items-center justify-between mb-4 md:mb-8">
+        <h2 className="text-lg md:text-2xl font-bold text-slate-900 dark:text-white">
           Publikasi Terbaru
         </h2>
         <Link
@@ -18,7 +18,7 @@ export default function FeaturedPublications({ publications }) {
         </Link>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-3 md:space-y-6">
         {publications.map((publication) => (
           <PublicationCard key={publication.id} publication={publication} />
         ))}

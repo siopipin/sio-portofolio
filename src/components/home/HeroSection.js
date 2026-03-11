@@ -26,15 +26,15 @@ export default function HeroSection() {
           <div className="space-y-6 lg:space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Hello, I'm <span className="text-yellow-300">Sio</span>
+                Hello, I'm <span className="text-blue-500">Sio</span>
               </h1>
               <div className="flex flex-row gap-4 items-start">
                 <p className="text-xl md:text-2xl text-blue-100 leading-relaxed flex-1">
                   IT Lecturer, Programmer, and Writer passionate about technology development and education.
                 </p>
                 <div className="relative sm:hidden flex-shrink-0">
-                  <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-xl border border-white/20 shadow-lg">
-                    <div className="w-20 h-20 bg-gradient-to-br from-yellow-300/90 to-orange-400/90 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-sm border border-white/30 shadow-md">
+                  <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-xl border border-blue-500/40 shadow-lg">
+                    <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-400 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-sm border border-blue-300/60 shadow-md">
                       <Image
                         src="/siojurnalispipin.png"
                         alt="Sio Jurnalis Pipin Profile Photo"
@@ -92,8 +92,8 @@ export default function HeroSection() {
           </div>
 
           <div className="relative hidden sm:block lg:block">
-            <div className="w-64 h-64 lg:w-80 lg:h-80 mx-auto bg-white/10 rounded-full flex items-center justify-center backdrop-blur-xl border border-white/20 shadow-2xl">
-              <div className="w-48 h-48 lg:w-64 lg:h-64 bg-gradient-to-br from-yellow-300/90 to-orange-400/90 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-sm border border-white/30 shadow-xl">
+            <div className="w-64 h-64 lg:w-80 lg:h-80 mx-auto bg-white/10 rounded-full flex items-center justify-center backdrop-blur-xl border border-blue-500/40 shadow-2xl">
+              <div className="w-48 h-48 lg:w-64 lg:h-64 bg-gradient-to-br from-blue-600 to-blue-400 rounded-full flex items-center justify-center overflow-hidden backdrop-blur-sm border border-blue-300/60 shadow-xl">
                 <Image
                   src="/siojurnalispipin.png"
                   alt="SioWeb Profile Photo"
