@@ -1,3 +1,4 @@
+
 export const publications = [
   {
     id: 1,
@@ -52,7 +53,7 @@ export const publications = [
     ],
     citations: 13,
     category: "usability",
-    featured: true
+    featured: false
   },
   {
     id: 3,
@@ -77,14 +78,14 @@ export const publications = [
     ],
     citations: 30,
     category: "nlp",
-    featured: true
+    featured: false
   },
   {
     id: 4,
     slug: "perancangan-ulang-ui-ux-mika-dengan-metode-design-thinking",
     title: "Perancangan Ulang UI/UX Mika dengan Metode Design Thinking",
     authors: [
-      "Felix Felix",
+      "Felix",
       "Sio Jurnalis Pipin",
       "David David",
       "Thiyara Al-Mawaddah"
@@ -130,7 +131,7 @@ export const publications = [
     ],
     citations: 6,
     category: "information-systems",
-    featured: true
+    featured: false
   },
   {
     id: 6,
@@ -182,7 +183,7 @@ export const publications = [
     ],
     citations: 43,
     category: "deep-learning",
-    featured: true
+    featured: false
   },
   {
     id: 8,
@@ -213,7 +214,7 @@ export const publications = [
     ],
     citations: 15,
     category: "nlp",
-    featured: true
+    featured: false
   },
   {
     id: 9,
@@ -244,7 +245,7 @@ export const publications = [
     ],
     citations: 6,
     category: "nlp",
-    featured: true
+    featured: false
   },
   {
     id: 10,
@@ -276,7 +277,7 @@ export const publications = [
     slug: "forecasting-climate-change-patterns-to-improving-rice-harvest-using-svr-for-achieving-green-economy",
     title:
       "Forecasting Climate Change Patterns to Improving Rice Harvest Using SVR for Achieving Green Economy",
-    authors: ["Sio Jurnalis Pipin"],
+    authors: ["Carles Juliandy", "Kelvin Kelvin", "Apriyanto Halim", "Sio Jurnalis Pipin", "Frans Mikael Sinaga", "Wulan Sri Lestari"],
     journal:
       "International Journal of Artificial Intelligence and Data Mining (IJAIDM)",
     year: 2024,
@@ -295,7 +296,7 @@ export const publications = [
     ],
     citations: 0,
     category: "machine-learning",
-    featured: false
+    featured: true
   },
   {
     id: 12,
@@ -387,7 +388,7 @@ export const publications = [
     ],
     citations: 5,
     category: "nlp",
-    featured: true
+    featured: false
   },
   {
     id: 15,

@@ -3,6 +3,10 @@ import { ExternalLink } from 'lucide-react';
 import PublicationCard from '@/components/ui/PublicationCard';
 
 export default function FeaturedPublications({ publications }) {
+  const sortedPublications = [...publications].sort(
+    (a, b) => b.year - a.year
+  );
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4 md:mb-8">
@@ -19,7 +23,7 @@ export default function FeaturedPublications({ publications }) {
       </div>
 
       <div className="space-y-3 md:space-y-6">
-        {publications.map((publication) => (
+        {sortedPublications.map((publication) => (
           <PublicationCard key={publication.id} publication={publication} />
         ))}
       </div>
