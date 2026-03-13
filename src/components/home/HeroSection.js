@@ -26,7 +26,7 @@ export default function HeroSection() {
           <div className="space-y-6 lg:space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                Hello, I'm <span className="text-blue-500">Sio</span>
+                Hello, I&apos;m <span className="text-blue-500">Sio</span>
               </h1>
               <div className="flex flex-row gap-4 items-start">
                 <p className="text-xl md:text-2xl text-blue-100 leading-relaxed flex-1">
