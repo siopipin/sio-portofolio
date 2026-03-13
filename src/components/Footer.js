@@ -11,9 +11,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-full flex items-center justify-center shadow-md border border-blue-500/40 dark:border-blue-300/30">
-                <BookOpen className="w-5 h-5 text-white drop-shadow" />
-              </div>
+            
               <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 SioPipin
               </span>
@@ -65,10 +63,10 @@ const Footer = () => {
                   className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors duration-200"
                 >
                   <Mail className="w-4 h-4 flex-shrink-0" />
-                  <span>contact@sioweb.com</span>
+                  <span>siojurnalispipin@hotmail.com</span>
                 </a>
                 <a
-                  href="https://github.com/sioweb"
+                  href="https://github.com/siopipin"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors duration-200"
@@ -77,7 +75,7 @@ const Footer = () => {
                   <span>GitHub</span>
                 </a>
                 <a
-                  href="https://linkedin.com/in/sioweb"
+                  href="https://www.linkedin.com/in/siopipin/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors duration-200"
@@ -92,7 +90,7 @@ const Footer = () => {
 
         <div className="border-t border-slate-200 dark:border-slate-700 mt-8 pt-8 text-center">
           <p className="text-slate-600 dark:text-slate-400 text-sm">
-            © {currentYear} SioPipin. Made with care using Next.js and Tailwind CSS.
+            © {currentYear} SioPipin. Made with love using Next.js and Tailwind CSS.
           </p>
         </div>
       </div>

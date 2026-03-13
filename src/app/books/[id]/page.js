@@ -5,8 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function BookDetailPage({ params }) {
-  const id = Number(params.id);
-  const book = books.find((b) => b.id === id);
+  const slug = params.id;
+  const book = books.find((b) => b.slug === slug || String(b.id) === slug);
 
   if (!book) {
     return (
@@ -27,6 +27,13 @@ export default function BookDetailPage({ params }) {
       </div>
     );
   }
+
+  const externalBookUrl =
+    book.purchaseUrl && book.purchaseUrl.trim() !== ''
+      ? book.purchaseUrl
+      : `https://www.google.com/search?q=${encodeURIComponent(
+          `${book.title} ${book.publisher} book`
+        )}`;
 
   return (
     <div className="min-h-screen">
@@ -87,30 +94,64 @@ export default function BookDetailPage({ params }) {
                 <h2 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">
                   About this book
                 </h2>
-                <p className="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300">
-                  This book summarises years of teaching, research, and practical
-                  work in software development and technology for education. It
-                  is written for lecturers, practitioners, and developers who
-                  want a pragmatic guide with real-world examples.
-                </p>
-                <p className="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300">
-                  Each chapter is designed to be hands-on, with focused topics
-                  that can be used as reference material or as part of a
-                  structured course. Examples, diagrams, and best practices are
-                  presented using tools and stacks that are common in modern
-                  industry projects.
-                </p>
+                {book.description && book.description.length > 0 ? (
+                  book.description.map((paragraph, index) => (
+                    <p
+                      key={index}
+                      className="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300"
+                    >
+                      {paragraph}
+                    </p>
+                  ))
+                ) : (
+                  <>
+                    <p className="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300">
+                      This book summarises years of teaching, research, and
+                      practical work in software development and technology for
+                      education. It is written for lecturers, practitioners, and
+                      developers who want a pragmatic guide with real-world
+                      examples.
+                    </p>
+                    <p className="text-sm sm:text-base leading-relaxed text-slate-700 dark:text-slate-300">
+                      Each chapter is designed to be hands-on, with focused
+                      topics that can be used as reference material or as part
+                      of a structured course. Examples, diagrams, and best
+                      practices are presented using tools and stacks that are
+                      common in modern industry projects.
+                    </p>
+                  </>
+                )}
               </div>
 
               <div className="space-y-3">
                 <h2 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white">
                   What you will learn
                 </h2>
-                <ul className="list-disc list-inside text-sm sm:text-base text-slate-700 dark:text-slate-300 space-y-1.5">
-                  <li>How to structure and design real-world applications.</li>
-                  <li>Patterns for integrating modern tools into teaching.</li>
-                  <li>Tips for improving code quality and maintainability.</li>
+                <ul className="list-disc pl-5 text-sm sm:text-base text-slate-700 dark:text-slate-300 space-y-1.5 text-justify">
+                  {(book.learningOutcomes && book.learningOutcomes.length > 0
+                    ? book.learningOutcomes
+                    : [
+                        'How to structure and design real-world applications.',
+                        'Patterns for integrating modern tools into teaching.',
+                        'Tips for improving code quality and maintainability.',
+                      ]
+                  ).map((item, index) => (
+                    <li key={index} className="leading-relaxed">
+                      {item}
+                    </li>
+                  ))}
                 </ul>
+              </div>
+
+              <div className="pt-2">
+                <a
+                  href={externalBookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-4 py-2 rounded-lg bg-blue-600 text-white text-sm sm:text-base font-medium hover:bg-blue-700 transition-colors"
+                >
+                  Akses pada google book atau penerbit
+                </a>
               </div>
             </div>
           </div>

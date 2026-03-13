@@ -30,7 +30,7 @@ export default function HeroSection() {
               </h1>
               <div className="flex flex-row gap-4 items-start">
                 <p className="text-xl md:text-2xl text-blue-100 leading-relaxed flex-1">
-                  IT Lecturer, Programmer, and Writer passionate about technology development and education.
+                  Lecturer, Programmer, and Writer passionate about technology development and education.
                 </p>
                 <div className="relative sm:hidden flex-shrink-0">
                   <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-xl border border-blue-500/40 shadow-lg">
@@ -57,7 +57,7 @@ export default function HeroSection() {
                 See Projects
               </Link>
               <a
-                href="/cv-sioweb.pdf"
+                href="/20240201_Sio Jurnalis Pipin_CV.pdf"
                 className="inline-flex items-center justify-center px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 <Download className="w-4 h-4 mr-2" />
@@ -67,7 +67,7 @@ export default function HeroSection() {
 
             <div className="flex space-x-4">
               <a
-                href="https://github.com/sioweb"
+                href="https://github.com/siopipin"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white hover:text-yellow-300 hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -75,7 +75,7 @@ export default function HeroSection() {
                 <Github className="w-6 h-6" />
               </a>
               <a
-                href="https://linkedin.com/in/sioweb"
+                href="https://linkedin.com/in/siopipin/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white hover:text-yellow-300 hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -83,7 +83,7 @@ export default function HeroSection() {
                 <Linkedin className="w-6 h-6" />
               </a>
               <a
-                href="mailto:contact@sioweb.com"
+                href="mailto:siojurnalispipin@hotmail.com"
                 className="p-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl text-white hover:text-yellow-300 hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 <Mail className="w-6 h-6" />

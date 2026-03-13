@@ -22,13 +22,15 @@ export default function ProjectsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 10;
 
-  const filteredProjects = projects.filter(project => {
+  const filteredProjects = projects
+    .filter(project => {
     const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
     const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          project.technologies.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
-  });
+      return matchesCategory && matchesSearch;
+    })
+    .sort((a, b) => (b.year || 0) - (a.year || 0));
 
   // Pagination logic
   const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
@@ -133,12 +135,20 @@ export default function ProjectsPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {currentProjects.map((project) => (
+              {currentProjects.map((project) => {
+                const demoEnabled = project.demoEnabled !== false;
+                const githubEnabled = project.githubEnabled !== false;
+                const hasDemo = demoEnabled && Boolean(project.demoUrl && project.demoUrl.trim() !== '');
+                const hasGithub = githubEnabled && Boolean(project.githubUrl && project.githubUrl.trim() !== '');
+                const images = Array.isArray(project.images) ? project.images : [];
+                const thumbnail = images[0] || '/projects/cover-app.jpeg';
+
+                return (
                 <div key={project.id} className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group border border-white/20 dark:border-slate-700/50">
                   {/* Project Image */}
                   <div className="h-48 relative overflow-hidden">
                     <Image 
-                      src={`https://picsum.photos/400/200?random=${project.id}`}
+                      src={thumbnail}
                       alt={project.title}
                       width={400}
                       height={200}
@@ -171,7 +181,7 @@ export default function ProjectsPage() {
 
                     {/* Technologies */}
                     <div className="flex flex-wrap gap-2 mb-6">
-                      {project.technologies.map((tech, index) => (
+                      {(project.technologies || []).map((tech, index) => (
                         <span key={index} className="px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs rounded">
                           {tech}
                         </span>
@@ -180,28 +190,50 @@ export default function ProjectsPage() {
 
                     {/* Action Buttons */}
                     <div className="flex space-x-2">
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex-1 text-center py-2 px-4 rounded-xl text-sm font-medium flex items-center justify-center ${themeComponents.buttonPrimary}`}
-                      >
-                        <ExternalLink className="w-4 h-4 mr-1" />
-                        Demo
-                      </a>
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex-1 text-center py-2 px-4 rounded-xl text-sm font-medium flex items-center justify-center ${themeComponents.buttonOutline}`}
-                      >
-                        <Github className="w-4 h-4 mr-1" />
-                        GitHub
-                      </a>
+                      {hasDemo ? (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`flex-1 text-center py-2 px-4 rounded-xl text-sm font-medium flex items-center justify-center ${themeComponents.buttonPrimary}`}
+                        >
+                          <ExternalLink className="w-4 h-4 mr-1" />
+                          Demo
+                        </a>
+                      ) : (
+                        <div
+                          className={`flex-1 text-center py-2 px-4 rounded-xl text-sm font-medium flex items-center justify-center opacity-60 cursor-not-allowed ${themeComponents.buttonPrimary}`}
+                          aria-disabled="true"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-1" />
+                          Demo
+                        </div>
+                      )}
+
+                      {hasGithub ? (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`flex-1 text-center py-2 px-4 rounded-xl text-sm font-medium flex items-center justify-center ${themeComponents.buttonOutline}`}
+                        >
+                          <Github className="w-4 h-4 mr-1" />
+                          GitHub
+                        </a>
+                      ) : (
+                        <div
+                          className={`flex-1 text-center py-2 px-4 rounded-xl text-sm font-medium flex items-center justify-center opacity-60 cursor-not-allowed ${themeComponents.buttonOutline}`}
+                          aria-disabled="true"
+                        >
+                          <Github className="w-4 h-4 mr-1" />
+                          Private
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
 

@@ -11,8 +11,12 @@ const categoryLabels = {
 };
 
 export default function ProjectCard({ project }) {
-  const imageSrc = project.image || null;
+  const imageSrc = (Array.isArray(project.images) && project.images[0]) || project.image || null;
   const categoryLabel = categoryLabels[project.category] || project.category;
+  const demoEnabled = project.demoEnabled !== false;
+  const githubEnabled = project.githubEnabled !== false;
+  const hasDemo = demoEnabled && project.demoUrl && project.demoUrl.trim() !== '';
+  const hasGithub = githubEnabled && project.githubUrl && project.githubUrl.trim() !== '';
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-lg md:rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -51,7 +55,7 @@ export default function ProjectCard({ project }) {
           {project.description}
         </p>
         <div className="flex flex-wrap gap-1 md:gap-1.5 mb-2 md:mb-4">
-          {project.technologies.slice(0, 3).map((tech, index) => (
+          {(project.technologies || []).slice(0, 3).map((tech, index) => (
             <span
               key={index}
               className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] md:text-xs rounded border border-slate-200 dark:border-slate-600"
@@ -61,24 +65,39 @@ export default function ProjectCard({ project }) {
           ))}
         </div>
         <div className="hidden sm:flex gap-1.5 md:gap-2">
-          <a
-            href={project.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-1 bg-slate-700 dark:bg-slate-600 text-white py-1.5 px-3 md:py-2 md:px-4 rounded-md md:rounded-lg hover:bg-slate-800 dark:hover:bg-slate-500 transition-colors text-xs md:text-sm font-medium"
-          >
-            <ExternalLink className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" />
-            Demo
-          </a>
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 py-1.5 px-3 md:py-2 md:px-4 rounded-md md:rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-xs md:text-sm font-medium"
-          >
-            <Github className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" />
-            GitHub
-          </a>
+          {hasDemo ? (
+            <a
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-1 bg-slate-700 dark:bg-slate-600 text-white py-1.5 px-3 md:py-2 md:px-4 rounded-md md:rounded-lg hover:bg-slate-800 dark:hover:bg-slate-500 transition-colors text-xs md:text-sm font-medium"
+            >
+              <ExternalLink className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" />
+              Demo
+            </a>
+          ) : (
+            <div className="flex-1 inline-flex items-center justify-center gap-1 bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 py-1.5 px-3 md:py-2 md:px-4 rounded-md md:rounded-lg text-xs md:text-sm font-medium cursor-not-allowed">
+              <ExternalLink className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" />
+              Demo
+            </div>
+          )}
+
+          {hasGithub ? (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 py-1.5 px-3 md:py-2 md:px-4 rounded-md md:rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-xs md:text-sm font-medium"
+            >
+              <Github className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" />
+              GitHub
+            </a>
+          ) : (
+            <div className="flex-1 inline-flex items-center justify-center gap-1 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 py-1.5 px-3 md:py-2 md:px-4 rounded-md md:rounded-lg text-xs md:text-sm font-medium cursor-not-allowed">
+              <Github className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" />
+              GitHub
+            </div>
+          )}
         </div>
       </div>
     </div>

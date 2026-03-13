@@ -7,28 +7,102 @@ import Footer from '@/components/Footer';
 import { projects } from '@/data/projects';
 import {
   Code,
-  ExternalLink,
-  Github,
   Calendar,
-  Users,
-  Clock,
   ArrowLeft,
   Mail,
   Linkedin,
   Github as GithubIcon,
   Globe,
-  Database,
-  Smartphone,
-  Zap,
-  Shield,
-  TrendingUp,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+function ProjectImages({ images, title }) {
+  const validImages = Array.isArray(images) ? images.filter(Boolean) : [];
+  const [current, setCurrent] = useState(0);
+
+  if (validImages.length === 0) {
+    return (
+      <div className="relative">
+        <div className="aspect-square bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl overflow-hidden shadow-2xl" />
+      </div>
+    );
+  }
+
+  if (validImages.length === 1) {
+    return (
+      <div className="relative">
+        <div className="aspect-square bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl overflow-hidden shadow-2xl">
+          <Image
+            src={validImages[0]}
+            alt={title}
+            width={800}
+            height={800}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+    );
+  }
+
+  const goPrev = () => {
+    setCurrent((prev) => (prev === 0 ? validImages.length - 1 : prev - 1));
+  };
+
+  const goNext = () => {
+    setCurrent((prev) => (prev === validImages.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <div className="relative">
+      <div className="aspect-square bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl overflow-hidden shadow-2xl">
+        <Image
+          src={validImages[current]}
+          alt={`${title} screenshot ${current + 1}`}
+          width={800}
+          height={800}
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <button
+        type="button"
+        onClick={goPrev}
+        aria-label="Sebelumnya"
+        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 shadow-md flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 transition-colors"
+      >
+        <span className="sr-only">Sebelumnya</span>
+        <span className="text-lg">&larr;</span>
+      </button>
+      <button
+        type="button"
+        onClick={goNext}
+        aria-label="Berikutnya"
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700 shadow-md flex items-center justify-center text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 transition-colors"
+      >
+        <span className="sr-only">Berikutnya</span>
+        <span className="text-lg">&rarr;</span>
+      </button>
+
+      <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1.5">
+        {validImages.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => setCurrent(index)}
+            className={`w-2 h-2 rounded-full border border-white/70 ${
+              index === current ? 'bg-white' : 'bg-white/30'
+            }`}
+            aria-label={`Slide ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const [project, setProject] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -76,40 +150,15 @@ export default function ProjectDetailPage() {
     );
   }
 
-  const features = [
-    {
-      icon: Users,
-      title: 'Manajemen Pengguna',
-      description:
-        'Sistem registrasi, login, dan manajemen profil pengguna dengan role-based access control.',
-    },
-    {
-      icon: Database,
-      title: 'Database Terintegrasi',
-      description: 'Penyimpanan data yang aman dan terstruktur dengan backup otomatis.',
-    },
-    {
-      icon: Smartphone,
-      title: 'Responsive Design',
-      description: 'Antarmuka yang responsif dan optimal untuk desktop, tablet, dan mobile.',
-    },
-    {
-      icon: Zap,
-      title: 'Real-time Updates',
-      description: 'Fitur real-time untuk notifikasi dan update konten secara instan.',
-    },
-    {
-      icon: Shield,
-      title: 'Keamanan Tinggi',
-      description: 'Implementasi keamanan multi-layer dengan enkripsi data sensitif.',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Metrik Keberhasilan',
-      description:
-        'Dashboard analitik untuk monitoring performa dan statistik pengguna.',
-    },
-  ];
+  const demoEnabled = project.demoEnabled !== false;
+  const githubEnabled = project.githubEnabled !== false;
+  const hasDemo = demoEnabled && Boolean(project.demoUrl && project.demoUrl.trim() !== '');
+  const hasGithub = githubEnabled && Boolean(project.githubUrl && project.githubUrl.trim() !== '');
+  const aboutParagraphs = Array.isArray(project.about)
+    ? project.about.filter(Boolean)
+    : [];
+  const gallery = Array.isArray(project.gallery) ? project.gallery.filter(Boolean) : [];
+  const featureList = Array.isArray(project.features) ? project.features.filter(Boolean) : [];
 
   return (
     <div className="min-h-screen">
@@ -164,25 +213,46 @@ export default function ProjectDetailPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href={project.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-8 py-3 bg-white/90 backdrop-blur-xl text-blue-600 font-semibold rounded-xl hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30"
-              >
-                <Globe className="w-5 h-5 mr-2" />
-                Lihat Demo
-              </a>
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <GithubIcon className="w-5 h-5 mr-2" />
-                Lihat Kode
-              </a>
+              {hasDemo ? (
+                <a
+                  href={project.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-8 py-3 bg-white/90 backdrop-blur-xl text-blue-600 font-semibold rounded-xl hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30"
+                >
+                  <Globe className="w-5 h-5 mr-2" />
+                  Lihat Demo
+                </a>
+              ) : (
+                <div className="inline-flex items-center px-8 py-3 bg-white/5 backdrop-blur-xl border border-white/10 text-blue-100/60 font-semibold rounded-xl shadow-lg cursor-not-allowed">
+                  <Globe className="w-5 h-5 mr-2" />
+                  Demo tidak tersedia
+                </div>
+              )}
+
+              {hasGithub ? (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  <GithubIcon className="w-5 h-5 mr-2" />
+                  Lihat Kode
+                </a>
+              ) : (
+                <div className="inline-flex items-center px-8 py-3 bg-white/5 backdrop-blur-xl border border-white/10 text-white/70 font-semibold rounded-xl shadow-lg cursor-not-allowed">
+                  <GithubIcon className="w-5 h-5 mr-2" />
+                  Kode tidak tersedia
+                </div>
+              )}
             </div>
+
+            {(!hasDemo || !hasGithub) && (
+              <p className="mt-6 text-sm text-blue-100/90">
+                Beberapa proyek klien tidak menyediakan akses demo publik atau kode sumber.
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -195,155 +265,94 @@ export default function ProjectDetailPage() {
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
                 Tentang Proyek
               </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                Platform pembelajaran online yang terintegrasi dengan sistem
-                manajemen pembelajaran (LMS) untuk institusi pendidikan. Proyek
-                ini dikembangkan dengan fokus pada user experience yang optimal
-                dan skalabilitas untuk menangani ribuan pengguna secara
-                bersamaan.
-              </p>
-              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                Fitur utama meliputi sistem manajemen kursus, video streaming,
-                quiz interaktif, forum diskusi, dan dashboard analitik untuk
-                monitoring progress pembelajaran.
+              {aboutParagraphs.length > 0 ? (
+                aboutParagraphs.map((paragraph, idx) => (
+                  <p
+                    key={idx}
+                    className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed"
+                  >
+                    {paragraph}
+                  </p>
+                ))
+              ) : (
+                <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {project.description}
+                </p>
+              )}
+
+              {featureList.length > 0 && (
+                <div className="mt-4">
+                  <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-2">
+                    Fitur utama pada proyek ini:
+                  </h3>
+                  <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                    {featureList.map((feature, idx) => (
+                      <li
+                        key={idx}
+                        className="flex gap-2"
+                      >
+                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-blue-500 dark:bg-blue-400 flex-shrink-0" />
+                        <span className="flex-1 leading-relaxed">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="pt-2 flex flex-wrap gap-3">
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm border border-slate-200 dark:border-slate-700">
+                  <Calendar className="w-4 h-4" />
+                  {project.year}
+                </span>
+                <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-sm border border-slate-200 dark:border-slate-700 capitalize">
+                  <Code className="w-4 h-4" />
+                  {project.category}
+                </span>
+              </div>
+
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                Catatan: Untuk beberapa proyek klien, detail tertentu (mis. akses repo, data, atau lingkungan produksi) tidak dapat dipublikasikan.
               </p>
             </div>
 
-            <div className="relative">
-              <div className="aspect-video bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src="https://picsum.photos/800/450?random=1"
-                  alt={project.title}
-                  width={800}
-                  height={450}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
+            <ProjectImages images={Array.isArray(project.images) ? project.images : []} title={project.title} />
           </div>
         </div>
       </section>
 
-      {/* Project Details */}
-      <section className="py-20 bg-slate-50 dark:bg-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-              Detail Proyek
-            </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300">
-              Informasi lengkap tentang pengembangan dan implementasi proyek ini
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-white/20 dark:border-slate-700/50">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center mb-4">
-                <Calendar className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
-                Timeline Pengembangan
-              </h3>
-              <p className="text-slate-600 dark:text-slate-300 mb-4">
-                Proyek ini dikembangkan selama 6 bulan dengan tahapan yang
-                terstruktur dan metodologi Agile.
+      {gallery.length > 0 && (
+        <section className="py-20 bg-slate-50 dark:bg-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                Tampilan Aplikasi
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300">
+                Cuplikan hasil karya dan antarmuka aplikasi
               </p>
-              <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-2">
-                <li>• Planning & Research (2 minggu)</li>
-                <li>• UI/UX Design (3 minggu)</li>
-                <li>• Frontend Development (8 minggu)</li>
-                <li>• Backend Development (6 minggu)</li>
-                <li>• Testing & Deployment (3 minggu)</li>
-              </ul>
             </div>
 
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-white/20 dark:border-slate-700/50">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center mb-4">
-                <Users className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
-                Target Pengguna
-              </h3>
-              <p className="text-slate-600 dark:text-slate-300 mb-4">
-                Platform ini dirancang untuk berbagai jenis pengguna dalam
-                ekosistem pendidikan.
-              </p>
-              <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-2">
-                <li>• Dosen & Pengajar</li>
-                <li>• Mahasiswa & Pelajar</li>
-                <li>• Administrator Institusi</li>
-                <li>• Content Creator</li>
-                <li>• IT Support</li>
-              </ul>
-            </div>
-
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 shadow-lg border border-white/20 dark:border-slate-700/50">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center mb-4">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
-                Metrik Keberhasilan
-              </h3>
-              <p className="text-slate-600 dark:text-slate-300 mb-4">
-                Platform ini telah mencapai berbagai milestone dan metrik
-                performa yang mengesankan.
-              </p>
-              <ul className="text-sm text-slate-600 dark:text-slate-300 space-y-2">
-                <li>• 10,000+ Pengguna Aktif</li>
-                <li>• 99.9% Uptime</li>
-                <li>• 500+ Kursus Online</li>
-                <li>• 95% User Satisfaction</li>
-                <li>• 50% Peningkatan Engagement</li>
-              </ul>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {gallery.map((src, idx) => (
+                <div
+                  key={idx}
+                  className="aspect-video bg-white/80 dark:bg-slate-900/80 rounded-2xl overflow-hidden shadow-lg border border-white/20 dark:border-slate-700/50"
+                >
+                  <Image
+                    src={src}
+                    alt={`${project.title} screenshot ${idx + 1}`}
+                    width={1200}
+                    height={675}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
-                Arsitektur Sistem
-              </h3>
-              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                Sistem ini dibangun dengan arsitektur microservices yang
-                scalable dan maintainable. Menggunakan containerization dengan
-                Docker dan orchestration dengan Kubernetes untuk deployment yang
-                efisien dan reliable.
-              </p>
-              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                Database menggunakan PostgreSQL untuk data relasional dan Redis
-                untuk caching. File storage menggunakan AWS S3 untuk media
-                content dan CDN untuk optimasi delivery.
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
-                  Microservices
-                </span>
-                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
-                  Docker
-                </span>
-                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
-                  Kubernetes
-                </span>
-                <span className="px-3 py-1 bg-blue-100/80 dark:bg-blue-900/80 backdrop-blur-sm text-blue-700 dark:text-blue-300 text-sm rounded-full border border-blue-200/50 dark:border-blue-800/50">
-                  AWS S3
-                </span>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="aspect-video bg-gradient-to-br from-blue-600 to-blue-400 rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src="https://picsum.photos/800/450?random=2"
-                  alt="System Architecture"
-                  width={800}
-                  height={450}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Technologies */}
       <section className="py-20 bg-slate-50 dark:bg-slate-800">
@@ -358,53 +367,22 @@ export default function ProjectDetailPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {project.technologies.map((tech, index) => (
-              <div
-                key={index}
-                className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20 dark:border-slate-700/50"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  <Code className="w-6 h-6 text-white" />
+          <div className="flex justify-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-center">
+              {(project.technologies || []).map((tech, index) => (
+                <div
+                  key={index}
+                  className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20 dark:border-slate-700/50"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Code className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-slate-900 dark:text-white">
+                    {tech}
+                  </h3>
                 </div>
-                <h3 className="font-semibold text-slate-900 dark:text-white">
-                  {tech}
-                </h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="py-20 bg-white dark:bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-              Fitur Utama
-            </h2>
-            <p className="text-lg text-slate-600 dark:text-slate-300">
-              Kemampuan dan fitur yang membuat proyek ini unggul
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="bg-slate-50/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-xl p-6 hover:shadow-lg transition-all duration-300 border border-white/20 dark:border-slate-700/50"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-400 rounded-lg flex items-center justify-center mb-4 shadow-lg">
-                  <feature.icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-slate-600 dark:text-slate-300">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -439,14 +417,14 @@ export default function ProjectDetailPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:contact@sioweb.com?subject=Diskusi Proyek"
+              href="mailto:siojurnalisp@gmail.com?subject=Diskusi Proyek"
               className="inline-flex items-center px-8 py-3 bg-white/90 backdrop-blur-xl text-blue-600 font-semibold rounded-xl hover:bg-white transition-all duration-300 shadow-lg hover:shadow-xl border border-white/30"
             >
               <Mail className="w-5 h-5 mr-2" />
               Hubungi via Email
             </a>
             <a
-              href="https://linkedin.com/in/sioweb"
+              href="https://www.linkedin.com/in/siopipin/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl"
