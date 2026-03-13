@@ -6,9 +6,15 @@ tags: ["Next.js", "React", "JavaScript", "Web Development"]
 publishedAt: "2024-01-15"
 readTime: "8 min read"
 featured: true
+coverImage: "nextjs.jpg"
+author: "Sio Jurnalis Pipin"
 ---
 
 # Memulai dengan Next.js 14: Fitur Terbaru dan Best Practices
+
+{{date}} · {{author}}
+
+![Next.js 14 Logo](assets/nextjs.jpg)
 
 Next.js 14 membawa banyak fitur baru yang revolusioner dalam pengembangan web modern. Dalam artikel ini, kita akan membahas fitur-fitur terbaru dan best practices untuk memulai pengembangan dengan Next.js 14.
 

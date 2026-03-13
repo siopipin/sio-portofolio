@@ -2,16 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Code, FileText, BookOpen, Home } from 'lucide-react';
+import { Menu, X, Code, FileText, BookMarked, Home } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
-    { name: 'Beranda', href: '/', icon: Home },
-    { name: 'Karya', href: '/projects', icon: Code },
-    { name: 'Artikel', href: '/articles', icon: FileText },
-    { name: 'Publikasi', href: '/publications', icon: BookOpen },
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Projects', href: '/projects', icon: Code },
+    { name: 'Articles', href: '/articles', icon: FileText },
+    { name: 'Publications', href: '/publications', icon: BookMarked },
   ];
 
   return (
@@ -20,11 +20,12 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <Code className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-full flex items-center justify-center shadow-md border border-blue-500/40 dark:border-blue-300/30">
+              {/* Icon: BookOpen as research/scholar symbol */}
+              <BookMarked className="w-5 h-5 text-white drop-shadow" />
             </div>
-            <span className="text-xl font-bold text-slate-900 dark:text-white">
-              SioWeb
+            <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+              SioPipin
             </span>
           </Link>
 
