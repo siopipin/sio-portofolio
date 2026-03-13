@@ -209,8 +209,8 @@ export default function PublicationDetailPage({ params }) {
               <div className="bg-slate-900 text-white rounded-xl p-5 text-xs sm:text-sm space-y-2">
                 <p className="font-semibold">How to cite</p>
                 <p className="text-slate-100 leading-relaxed">
-                  {publication.authors.join(', ')}. "{publication.title}."{' '}
-                  {publication.journal}, {publication.year}. DOI:{' '}
+                  {publication.authors.join(', ')}. &quot;{publication.title}
+                  &quot;. {publication.journal}, {publication.year}. DOI:{' '}
                   {publication.doi}.
                 </p>
               </div>
