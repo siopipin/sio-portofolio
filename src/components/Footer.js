@@ -59,11 +59,11 @@ const Footer = () => {
               </h3>
               <div className="space-y-3">
                 <a
-                  href="mailto:contact@sioweb.com"
+                  href="mailto:siojurnalispipin@hotmail.com"
                   className="flex items-center space-x-2 text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 text-sm transition-colors duration-200"
                 >
                   <Mail className="w-4 h-4 flex-shrink-0" />
-                  <span>siojurnalispipin@hotmail.com</span>
+                  <span>Email</span>
                 </a>
                 <a
                   href="https://github.com/siopipin"

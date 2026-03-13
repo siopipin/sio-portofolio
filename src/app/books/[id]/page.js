@@ -4,8 +4,9 @@ import { books } from '@/data/books';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function BookDetailPage({ params }) {
-  const slug = params.id;
+export default async function BookDetailPage({ params }) {
+  const { id } = await params;
+  const slug = id;
   const book = books.find((b) => b.slug === slug || String(b.id) === slug);
 
   if (!book) {

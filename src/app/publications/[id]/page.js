@@ -4,8 +4,9 @@ import { publications } from '@/data/publications';
 import { BookOpen, Calendar, Users, Quote, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
-export default function PublicationDetailPage({ params }) {
-  const param = params.id;
+export default async function PublicationDetailPage({ params }) {
+  const { id } = await params;
+  const param = id;
   const publication =
     publications.find((p) => p.slug === param) ||
     publications.find((p) => String(p.id) === String(param));
