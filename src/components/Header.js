@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X, Code, FileText, BookMarked, Home } from 'lucide-react';
+import { Menu, X, Code, FileText, BookMarked, Home, LayoutDashboard } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,6 +12,7 @@ const Header = () => {
     { name: 'Projects', href: '/projects', icon: Code },
     { name: 'Articles', href: '/articles', icon: FileText },
     { name: 'Publications', href: '/publications', icon: BookMarked },
+    { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   ];
 
   return (

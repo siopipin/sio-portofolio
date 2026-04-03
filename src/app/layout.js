@@ -1,6 +1,9 @@
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import "highlight.js/styles/atom-one-dark.css";
 import "./globals.css";
+
+const UMAMI_WEBSITE_ID = "9127bbd1-e384-461d-b56a-c5a6a3afc20f";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -95,6 +98,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="id" className="dark" suppressHydrationWarning>
       <body className={inter.className}>
+        <Script
+          src="https://cloud.umami.is/script.js"
+          strategy="lazyOnload"
+          data-website-id={UMAMI_WEBSITE_ID}
+        />
         <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
           {children}
         </div>
